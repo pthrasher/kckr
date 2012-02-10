@@ -28,41 +28,44 @@ sources      = []
 optionParser = null
 
 
-exports.run = ->
+run = ->
   parseOptions()
   return usage()                         if opts.help
   return version()                       if opts.version
   return unless opts.execute
   literals = if opts.run then sources.splice 1 else []
 
+  kckrCallback = (source, base) ->
+    basename = path.basename source
+    basename_noext = basename.replace path.extname(basename), ''
+    dirname = path.dirname source
+    nobase = source.replace(base, '').replace(/^\/+/, '')
+    nobase_noext = nobase.replace path.extname(basename), ''
+
+    cmd = opts.execute.replace "{source}", source
+    cmd = cmd.replace "{basename}", basename
+    cmd = cmd.replace "{basename_noext}", basename_noext
+    cmd = cmd.replace "{dirname}", dirname
+    cmd = cmd.replace "{nobase}", nobase
+    cmd = cmd.replace "{nobase_noext}", nobase_noext
+    cmd = cmd.replace "{}", source
+
+    exec cmd, (err, stdo, stde) ->
+        timeLog "<- `#{ cmd }`"
+        timeLog "!!! Error" if err
+        for line in (l for l in stdo.split "\n" when l isnt '')
+          timeLog "-> #{ line }"
+        for line in (l for l in stde.split "\n" when l isnt '')
+          timeLog "-> #{ line }"
+
+  re = if opts.pattern then new RegExp(opts.pattern) else /.*/
   # The magic... Creates an instance of Kckr, and then sets a callback.
   # Runs the command you specified on the command line.
-  k = new kckr.Kckr sources, (source) ->
-    doit = yes
-    if opts.pattern
-      doit = no
-      re = new RegExp(opts.pattern)
-      if source.match re
-        doit = yes
-    if doit
-      basename = path.basename source
-      basename_noext = basename.replace path.extname(basename), ''
-      dirname = path.dirname source
-      cmd = opts.execute.replace "{source}", source
-      cmd = cmd.replace "{basename}", basename
-      cmd = cmd.replace "{basename_noext}", basename_noext
-      cmd = cmd.replace "{dirname}", dirname
-      cmd = cmd.replace "{}", source
-      exec cmd, (err, stdo, stde) ->
-        if err
-          timeLog "There was an error while running `#{ cmd }`."
-          print_line "BEGIN ERROR\n#{ stdo }\n#{ stde }\nEND ERROR"
-        else
-          timeLog "<- `#{ cmd }`"
-          for line in (l for l in stdo.split "\n" when l isnt '')
-            timeLog "-> #{ line }"
-          for line in (l for l in stde.split "\n" when l isnt '')
-            timeLog "-> #{ line }"
+  k = new kckr.Kckr
+    pattern: re
+    sources: sources
+    callback: kckrCallback
+
   timeLog "kckr is watching (O_O )"
 
 parseOptions = ->
@@ -83,3 +86,5 @@ version = ->
 # When watching scripts, it's useful to log changes with the timestamp.
 timeLog = (message) ->
   print_line "#{(new Date).toLocaleTimeString()} - #{message}"
+
+exports.run = run

@@ -2,7 +2,7 @@
   "author": "Philip Thrasher <philipthrasher@gmail.com> (http://philipthrasher.com)",
   "name": "kckr",
   "description": "Yet another file kicker. However, this is the one you'll want to use. It's built on the super reliable file watching technique that coffee-script's cli app uses.",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "homepage": "http://pthrasher.github.com/kckr/",
   "repository": {
     "type": "git",
@@ -10,13 +10,14 @@
   },
   "main": "./lib/kckr/kckr",
   "bin": {
-    "kckr": "./bin/kckr"
+    "kckr": "./bin/kckr.js"
   },
   "engines": {
     "node": "~0.6.0"
   },
   "devDependencies": {
-    "coffee-script": "~1.2.0"
+    "coffee-script": "~1.2.0",
+    "uglify-js": "~1.2.5"
   },
   "preferGlobal": true,
   "bugs": {

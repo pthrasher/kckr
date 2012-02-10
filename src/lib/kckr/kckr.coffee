@@ -6,23 +6,32 @@ fs             = require 'fs'
 path           = require 'path'
 helpers        = require './helpers'
 
-exports.VERSION = '1.0.1'
+exports.VERSION = '1.0.3'
 
 # Convenience for cleaner setTimeouts.
 wait = (milliseconds, func) -> setTimeout func, milliseconds
 
 class Kckr
-  constructor: (paths, callback, verbose = no) ->
-    @sources = (@validate p for p in paths)
+  constructor: (options) ->
+    options or= {}
+    defaults =
+      pattern: /.*/
+      sources: []
+      callback: -> return
+      verbose: false
+    options = helpers.merge defaults, options
+
+    @sources = options.sources
     @not_sources = []
-    @fn = callback
-    @verbose = verbose
+    @fn = options.callback
+    @re = options.pattern
+    @verbose = options.verbose
 
     # Start the cascade.
     @kickoff source, yes, (path.normalize source), yes for source in @sources
 
-  validate: (source) ->
-    return source
+  validate: (source) =>
+    !!source.match @re
 
   kickoff: (source, top_level, base, first_run = no) =>
     fs.stat source, (err, stats) =>
@@ -38,7 +47,7 @@ class Kckr
           index = @sources.indexOf source
           @sources[index..index] = files
           @kickoff file, no, base, yes for file in files
-      else if top_level or stats.isFile()
+      else if top_level or (stats.isFile() and @validate source)
         @watch source, base
         fs.readFile source, (err, code) =>
           throw err if err and err.code isnt 'ENOENT'
@@ -84,10 +93,10 @@ class Kckr
   watch_dir: (source, base) =>
     readdir_timeout = null
     try
-      watcher = fs.watch source, ->
+      watcher = fs.watch source, =>
         clearTimeout readdir_timeout
-        readdir_timeout = wait 25, ->
-          fs.readdir source, (err, files) ->
+        readdir_timeout = wait 25, =>
+          fs.readdir source, (err, files) =>
             if err
               throw err unless err.code is 'ENOENT'
               watcher.close()
@@ -95,7 +104,7 @@ class Kckr
             files = files.map (file) -> path.join source, file
             for file in files
               continue if @sources.some (s) -> s.indexOf(file) >= 0
-              sources.push file
+              @sources.push file
               @kickoff file, no, base
     catch e
       throw e unless e.code is 'ENOENT'
@@ -104,7 +113,7 @@ class Kckr
     prev_sources = @sources[0...@sources.length]
     to_remove = (file for file in sources when file.indexOf(source) >= 0)
     remove_source file, base, yes for file in to_remove
-    return unless @sources.some (s, i) -> prev_sources[i] isnt s
+    return unless @sources.some (s, i) => prev_sources[i] isnt s
 
   remove_source: (source, base) =>
     index = @sources.indexOf source
