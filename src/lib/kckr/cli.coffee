@@ -27,6 +27,7 @@ opts         = {}
 sources      = []
 optionParser = null
 
+
 exports.run = ->
   parseOptions()
   return usage()                         if opts.help
