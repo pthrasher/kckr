@@ -14,7 +14,20 @@ have a watcher that works reliably.
 how do I use it?
 ================
 
-    kckr -e "lessc {source} > static/css/{basename_noext}.css" -r ".*\.less" static/less
+The help output says:
+
+  Usage: kckr [options] path/to/watch
+
+
+    -e, --execute      cmd to execute upon file change. use {}, {source}, {basename}, {basename_noext}, {dirname} for path placeholder(s).
+    -p, --path         path to dir, or file to watch.
+    -r, --pattern      pattern for filenames to match if watching a dir.
+    -h, --help         display this help message
+    -v, --version      display the version number
+
+So, if you want to compile less css files from one dir into another dir on every file change:
+
+    kckr -e "lessc {source} > css/{basename_noext}.css" -r ".*\.less" less
 
 Got it? Maybe not? read it a few more times...
 
@@ -28,7 +41,9 @@ Tokens
 
 get in touch
 ============
+
 http://twitter.com/#!pthrasher
+
 http://philipthrasher.com
 
 or
