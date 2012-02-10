@@ -55,7 +55,7 @@ exports.run = ->
       exec cmd, (err, stdo, stde) ->
         if err
           timeLog "There was an error while running `#{ cmd }`."
-          print_line "BEGIN ERROR\n#{ stde }\nEND ERROR"
+          print_line "BEGIN ERROR\n#{ stdo }\n#{ stde }\nEND ERROR"
         else
           timeLog "<- `#{ cmd }`"
           for line in (l for l in stdo.split "\n" when l isnt '')
