@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/pthrasher/kckr.png)](http://travis-ci.org/pthrasher/kckr)
+
 what is it?
 ===========
 
