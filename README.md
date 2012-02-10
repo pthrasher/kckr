@@ -1,7 +1,10 @@
+kckr
+====
+
 [![Build Status](https://secure.travis-ci.org/pthrasher/kckr.png)](http://travis-ci.org/pthrasher/kckr)
 
 what is it?
-===========
+-----------
 
 Kicker, watchr, live reload... There's a million and one scripts out there that
 will take an action when files you're watching have changed. Kckr just actually
@@ -13,14 +16,14 @@ command line app. They got it right, and they're the only ones I know of that
 have a watcher that works reliably.
 
 installing
-==========
+----------
 
 First, you need node.js, and npm. Once you got that part down, do the following.
 
     npm install -g kckr
 
 how do I use it?
-================
+----------------
 
 The help output says:
 
@@ -33,22 +36,31 @@ The help output says:
     -h, --help         display this help message
     -v, --version      display the version number
 
-So, if you want to compile less css files from one dir into another dir on every file change:
+So, if you want to compile less css files from one dir into another dir on every file change and your directory structure looked like this:
 
-    kckr -e "lessc {source} > css/{basename_noext}.css" -r ".*\.less" less
+    static/
+      |->  less
+      +->  css
+
+You could do this:
+
+    kckr -e "lessc {source} > static/css/{basename_noext}.css" -r ".*\.less" static
 
 Got it? Maybe not? read it a few more times...
 
-Tokens
-------
+checkout the `watch` portion of the make file to see how I build my coffeescript while editing.
 
-    {}, {source} - full relative path to file with extension. (ex. less/styles.less)
-    {basename} - Just the filename.  (ex. styles.less)
+**tokens**
+
+    {}, {source} - full relative path to file with extension. (ex. static/less/styles.less)
+    {basename} - just the filename.  (ex. styles.less)
     {basename_noext} - Just the filename, sans extension. (ex. styles)
-    {dirname} - everything but the filename. (ex. less/)
+    {dirname} - everything but the filename. (ex. static/less/)
+    {nobase} - source sans the starting dir. (ex. less/styles.less)
+    {nobase_noext} - source sans the starting dir, sans the extension. (ex. less/styles)
 
 get in touch
-============
+------------
 
 http://twitter.com/#!philipthrasher
 
