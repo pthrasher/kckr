@@ -40,10 +40,10 @@ Got it? Maybe not? read it a few more times...
 Tokens
 ------
 
-    {}, {source} - full relative path to file with extension.
-    {basename} - Just the filename.
-    {basename_noext} - Just the filename, sans extension.
-    {dirname} - everything but the filename.
+    {}, {source} - full relative path to file with extension. (ex. less/styles.less)
+    {basename} - Just the filename.  (ex. styles.less)
+    {basename_noext} - Just the filename, sans extension. (ex. styles)
+    {dirname} - everything but the filename. (ex. less/)
 
 get in touch
 ============
