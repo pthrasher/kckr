@@ -6,7 +6,7 @@ fs             = require 'fs'
 path           = require 'path'
 helpers        = require './helpers'
 
-exports.VERSION = '1.0.3'
+exports.VERSION = '1.1.0'
 
 # Convenience for cleaner setTimeouts.
 wait = (milliseconds, func) -> setTimeout func, milliseconds
@@ -19,6 +19,7 @@ class Kckr
       sources: []
       callback: -> return
       verbose: false
+      kickonce: false
     options = helpers.merge defaults, options
 
     @sources = options.sources
@@ -26,6 +27,7 @@ class Kckr
     @fn = options.callback
     @re = options.pattern
     @verbose = options.verbose
+    @kickonce = options.kickonce
 
     # Start the cascade.
     @kickoff source, yes, (path.normalize source), yes for source in @sources
@@ -38,7 +40,7 @@ class Kckr
       throw err if err and err.code isnt 'ENOENT'
       return if err?.code is 'ENOENT'
       if stats.isDirectory()
-        @watch_dir source, base
+        @watch_dir source, base unless @kickonce
         console.log "Watching dir: #{ source }" if first_run and @verbose
         fs.readdir source, (err, files) =>
           throw err if err and err.code isnt 'ENOENT'
@@ -48,11 +50,9 @@ class Kckr
           @sources[index..index] = files
           @kickoff file, no, base, yes for file in files
       else if top_level or (stats.isFile() and @validate source)
-        @watch source, base
-        fs.readFile source, (err, code) =>
-          throw err if err and err.code isnt 'ENOENT'
-          return if err?.code is 'ENOENT'
-          console.log "Watching file: #{ source }" if first_run and @verbose
+        @watch source, base unless @kickonce
+        @fn source, base if @kickonce
+        console.log "Watching file: #{ source }" if first_run and @verbose
       else
         @not_sources[source] = yes
         @remove_source source, base

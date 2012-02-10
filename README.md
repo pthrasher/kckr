@@ -31,6 +31,7 @@ The help output says:
 
 
     -e, --execute      cmd to execute upon file change. use {}, {source}, {basename}, {basename_noext}, {dirname} for path placeholder(s).
+    -k, --kickonce     just traverse the dir, exec on each match, and quit. don't do any watching, just do the kicking. (used in my `make build` -- check it out!)
     -p, --path         path to dir, or file to watch.
     -r, --pattern      pattern for filenames to match if watching a dir.
     -h, --help         display this help message

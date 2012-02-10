@@ -17,7 +17,7 @@ BANNER = '''
 # The list of all the valid option flags that `kckr` knows how to handle.
 SWITCHES = [
   ['-e', '--execute [CMD]',     'cmd to execute upon file change. use {}, {source}, {basename}, {basename_noext}, {dirname} for path placeholder(s).']
-  ['-p', '--path',              'path to dir, or file to watch.']
+  ['-k', '--kickonce',         'just traverse the dir, exec on each match, and quit. don\'t do any watching.']
   ['-r', '--pattern [PATTERN]', 'pattern for filenames to match if watching a dir.']
   ['-h', '--help',              'display this help message']
   ['-v', '--version',           'display the version number']
@@ -65,8 +65,9 @@ run = ->
     pattern: re
     sources: sources
     callback: kckrCallback
-
-  timeLog "kckr is watching (O_O )"
+    kickonce: opts.kickonce
+  action = if opts.kickonce then "kicking" else "watching"
+  timeLog "kckr is #{action} (O_O )"
 
 parseOptions = ->
   optionParser  = new optparse.OptionParser SWITCHES, BANNER
