@@ -1,0 +1,21 @@
+{
+  "author": "Philip Thrasher <philipthrasher@gmail.com> (http://philipthrasher.com)",
+  "name": "kckr",
+  "description": "Yet another file kicker. However, this is the one you'll want to use.",
+  "version": "0.0.3",
+  "homepage": "http://pthrasher.github.com/kckr/",
+  "repository": {
+    "type": "git",
+    "url": "http://www.github.com/pthrasher/kckr.git"
+  },
+  "main": "./lib/kckr/kckr",
+  "bin": {
+    "kckr":"./bin/kckr"
+  },
+  "engines": {
+    "node": "~0.6.0"
+  },
+  "devDependencies": {
+    "coffee-script"
+  }
+}
