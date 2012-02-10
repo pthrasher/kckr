@@ -1,8 +1,8 @@
 {
   "author": "Philip Thrasher <philipthrasher@gmail.com> (http://philipthrasher.com)",
   "name": "kckr",
-  "description": "Yet another file kicker. However, this is the one you'll want to use.",
-  "version": "0.0.3",
+  "description": "Yet another file kicker. However, this is the one you'll want to use. It's built on the super reliable file watching technique that coffee-script's cli app uses.",
+  "version": "1.0.1",
   "homepage": "http://pthrasher.github.com/kckr/",
   "repository": {
     "type": "git",
@@ -10,12 +10,30 @@
   },
   "main": "./lib/kckr/kckr",
   "bin": {
-    "kckr":"./bin/kckr"
+    "kckr": "./bin/kckr"
   },
   "engines": {
     "node": "~0.6.0"
   },
   "devDependencies": {
-    "coffee-script"
-  }
+    "coffee-script": "~1.2.0"
+  },
+  "preferGlobal": true,
+  "bugs": {
+    "url" : "http://github.com/pthrasher/kckr/issues"
+  },
+  "keywords": [
+    "kicker",
+    "kickr",
+    "kckr",
+    "watcher",
+    "watchr",
+    "files",
+    "file system",
+    "filesystem",
+    "fs",
+    "watch",
+    "kick",
+    "path"
+  ]
 }

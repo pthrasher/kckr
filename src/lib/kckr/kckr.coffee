@@ -6,7 +6,7 @@ fs             = require 'fs'
 path           = require 'path'
 helpers        = require './helpers'
 
-exports.VERSION = '0.0.3'
+exports.VERSION = '1.0.1'
 
 # Convenience for cleaner setTimeouts.
 wait = (milliseconds, func) -> setTimeout func, milliseconds

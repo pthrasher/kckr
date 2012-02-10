@@ -16,7 +16,7 @@ BANNER = '''
 
 # The list of all the valid option flags that `kckr` knows how to handle.
 SWITCHES = [
-  ['-e', '--execute [CMD]',     'cmd to execute upon file change. use {} for path placeholder.']
+  ['-e', '--execute [CMD]',     'cmd to execute upon file change. use {}, {source}, {basename}, {basename_noext}, {dirname} for path placeholder(s).']
   ['-p', '--path',              'path to dir, or file to watch.']
   ['-r', '--pattern [PATTERN]', 'pattern for filenames to match if watching a dir.']
   ['-h', '--help',              'display this help message']
@@ -63,6 +63,7 @@ exports.run = ->
             timeLog "-> #{ line }"
           for line in (l for l in stde.split "\n" when l isnt '')
             timeLog "-> #{ line }"
+  timeLog "kckr is watching (O_O )"
 
 parseOptions = ->
   optionParser  = new optparse.OptionParser SWITCHES, BANNER
