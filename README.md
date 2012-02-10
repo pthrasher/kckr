@@ -10,6 +10,12 @@ Also, I should say that I shamelessly took the technique from CoffeeScript's
 command line app. They got it right, and they're the only ones I know of that
 have a watcher that works reliably.
 
+installing
+==========
+
+First, you need node.js, and npm. Once you got that part down, do the following.
+
+    npm install -g kckr
 
 how do I use it?
 ================
