@@ -42,7 +42,7 @@ Tokens
 get in touch
 ============
 
-http://twitter.com/#!pthrasher
+http://twitter.com/#!philipthrasher
 
 http://philipthrasher.com
 
