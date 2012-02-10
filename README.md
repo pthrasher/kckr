@@ -16,6 +16,15 @@ how do I use it?
 
     kckr -e "lessc {source} > static/css/{basename_noext}.css" -r ".*\.less" static/less
 
+Got it? Maybe not? read it a few more times...
+
+Tokens
+------
+
+    {}, {source} - full relative path to file with extension.
+    {basename} - Just the filename.
+    {basename_noext} - Just the filename, sans extension.
+    {dirname} - everything but the filename.
 
 get in touch
 ============
