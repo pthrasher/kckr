@@ -66,8 +66,8 @@ run = ->
     sources: sources
     callback: kckrCallback
     kickonce: opts.kickonce
-  action = if opts.kickonce then "kicking" else "watching"
-  timeLog "kckr is #{action} (O_O )"
+  action = if opts.kickonce then "kicking ( O_O)" else "watching (O_O )"
+  timeLog "kckr is #{action}"
 
 parseOptions = ->
   optionParser  = new optparse.OptionParser SWITCHES, BANNER
