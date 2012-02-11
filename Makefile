@@ -12,16 +12,19 @@ watch:
 	node bin/kckr.js -e "coffee -cpb {} | uglifyjs -nc -nm > {nobase_noext}.js" -r ".*\.coffee" src
 
 major:
+	make build
 	npm version `src/build/inc_version major kckr`
 	git push origin && git push origin --tags
 	make publish
 
 minor:
+	make build
 	npm version `src/build/inc_version minor kckr`
 	git push origin && git push origin --tags
 	make publish
 
 patch:
+	make build
 	npm version `src/build/inc_version patch kckr`
 	git push origin && git push origin --tags
 	make publish
