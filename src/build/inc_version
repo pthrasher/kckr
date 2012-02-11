@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ $# -lt 2 ]]; then
+  echo "Usage: inc_version [major|minor|patch] [package-name]";
+  exit 1;
+fi
+
+_version="echo "$(npm view ${2} version);
+_major=$(${_version} | cut -d . -f 1 -s);
+_minor=$(${_version} | cut -d . -f 2 -s);
+_patch=$(${_version} | cut -d . -f 3 -s);
+
+case $1 in
+  major )
+    let _major=${_major}+1;
+    ;;
+  minor )
+    let _minor=${_minor}+1;
+    ;;
+  patch )
+    let _patch=${_patch}+1;
+    ;;
+esac
+echo ${_major}.${_minor}.${_patch};

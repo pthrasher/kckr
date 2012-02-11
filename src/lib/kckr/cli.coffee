@@ -82,7 +82,10 @@ usage = ->
 
 # Print the `--version` message and exit.
 version = ->
-  print_line "Kckr version #{kckr.VERSION}"
+  exec 'npm view kckr version | cut -d . -f 1,2,3 -s', (err, stdo, stde) ->
+    print_line "Unknown version." if err?
+    return if err?
+    print_line "Kckr version #{stdo}"
 
 # When watching scripts, it's useful to log changes with the timestamp.
 timeLog = (message) ->
