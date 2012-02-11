@@ -23,8 +23,8 @@ minor:
 
 patch:
 	npm version `src/build/inc_version patch kckr`
-	# git push origin && git push origin --tags
-	# make publish
+	git push origin && git push origin --tags
+	make publish
 
 publish:
 	npm publish
