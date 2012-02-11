@@ -20,7 +20,7 @@ major:
 	make publish
 
 minor:
-	version=`src/build/inc_version major kckr`
+	version=`src/build/inc_version minor kckr`
 	npm version ${version}
 	git commit -avm "Minor commit -> ${version}"
 	git tag ${version}
@@ -28,12 +28,11 @@ minor:
 	make publish
 
 patch:
-	version=`src/build/inc_version major kckr`
-	npm version ${version}
-	git commit -avm "Patch commit -> ${version}"
-	git tag ${version}
-	git push origin && git push origin --tags
-	make publish
+	npm version `src/build/inc_version patch kckr`
+	# git commit -avm "Patch commit -> ${version}"
+	# git tag ${version}
+	# git push origin && git push origin --tags
+	# make publish
 
 publish:
 	npm publish
