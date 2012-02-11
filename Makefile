@@ -29,8 +29,8 @@ minor:
 
 patch:
 	npm version `src/build/inc_version patch kckr`
-	# git commit -avm "Patch commit -> ${version}"
-	# git tag ${version}
+	git commit -avm "Patch commit -> `src/build/inc_version patch kckr`"
+	git tag `src/build/inc_version patch kckr`
 	# git push origin && git push origin --tags
 	# make publish
 
