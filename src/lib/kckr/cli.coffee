@@ -29,6 +29,10 @@ optionParser = null
 
 
 run = ->
+  process.on "SIGINT", ->
+    print_line "\nkckr sleep. (-.- ) Zz"
+    process.exit 0
+
   parseOptions()
   return usage()                         if opts.help
   return version()                       if opts.version

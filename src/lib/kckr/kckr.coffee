@@ -1,6 +1,3 @@
-###
-Technique kind of copied from coffee-script's CLI app. Their's works very well.
-###
 
 fs             = require 'fs'
 path           = require 'path'
@@ -56,37 +53,32 @@ class Kckr
         @remove_source source, base
 
   watch: (source, base) =>
-    prev_stats = null
-    cb_timeout = null
+    watchOpts =
+      persistent: no
+      interval: 25
 
     watch_err = (e) =>
       if e.code is 'ENOENT'
         return if @sources.indexOf(source) is -1
         try
           rewatch()
-          execute()
         catch e
           @remove_source source, base, yes
       else throw e
 
-    execute = =>
-      clearTimeout cb_timeout
-      cb_timeout = wait 25, =>
-        fs.stat source, (err, stats) =>
-          return watch_err err if err
-          return rewatch() if prev_stats and stats.size is prev_stats.size and
-            stats.mtime.getTime() is prev_stats.mtime.getTime()
-          prev_stats = stats
-          @fn(source, base)
-          rewatch()
+    execute = (curr, prev) =>
+      if curr.mtime > prev.mtime
+        @fn(source, base)
+        rewatch()
+
     try
-      watcher = fs.watch source, execute
+      fs.watchFile source, watchOpts, execute
     catch e
       watch_err e
 
     rewatch = =>
-      watcher?.close()
-      watcher = fs.watch source, execute
+      fs.unwatchFile source
+      fs.watchFile source, watchOpts, execute
 
   watch_dir: (source, base) =>
     readdir_timeout = null
