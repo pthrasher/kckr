@@ -1,4 +1,3 @@
-
 fs             = require 'fs'
 path           = require 'path'
 helpers        = require './helpers'
@@ -101,7 +100,7 @@ class Kckr
 
   unwatch_dir: (source, base) =>
     prev_sources = @sources[0...@sources.length]
-    to_remove = (file for file in sources when file.indexOf(source) >= 0)
+    to_remove = (file for file in @sources when file.indexOf(source) >= 0)
     remove_source file, base, yes for file in to_remove
     return unless @sources.some (s, i) => prev_sources[i] isnt s
 
