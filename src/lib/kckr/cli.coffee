@@ -54,13 +54,14 @@ run = ->
     cmd = cmd.replace "{nobase_noext}", nobase_noext
     cmd = cmd.replace "{}", source
 
+    timeLog "<- `#{ cmd }`"
     exec cmd, (err, stdo, stde) ->
-        timeLog "<- `#{ cmd }`"
         timeLog "!!! Error" if err
         for line in (l for l in stdo.split "\n" when l isnt '')
-          timeLog "-> #{ line }"
+            timeLog "-> #{ line }"
         for line in (l for l in stde.split "\n" when l isnt '')
-          timeLog "-> #{ line }"
+            timeLog "-> #{ line }"
+
 
   re = if opts.pattern then new RegExp(opts.pattern) else /.*/
   # The magic... Creates an instance of Kckr, and then sets a callback.
