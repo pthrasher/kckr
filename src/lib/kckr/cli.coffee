@@ -29,9 +29,13 @@ optionParser = null
 
 
 run = ->
-  process.on "SIGINT", ->
+  exit = ->
     print_line "\nkckr sleep. (-.- ) Zz"
     process.exit 0
+  try
+    process.on "SIGINT", exit
+  catch err # For the Windows users.
+    process.on "exit", exit
 
   parseOptions()
   return usage()                         if opts.help
