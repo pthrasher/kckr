@@ -13,9 +13,12 @@ _patch=$(${_version} | cut -d . -f 3 -s);
 case $1 in
   major )
     let _major=${_major}+1;
+    let _minor=0;
+    let _patch=0;
     ;;
   minor )
     let _minor=${_minor}+1;
+    let _patch=0;
     ;;
   patch )
     let _patch=${_patch}+1;
