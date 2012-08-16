@@ -13,7 +13,8 @@
     "kckr": "./bin/kckr.js"
   },
   "engines": {
-    "node": "~0.6.0"
+    "node": "~0.6.0",
+    "node": "~0.8.0"
   },
   "devDependencies": {
     "coffee-script": "~1.2.0",
