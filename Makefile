@@ -14,24 +14,18 @@ watch:
 major:
 	make build
 	npm version `src/build/inc_version major kckr`
-	git add .
-	git commit -avm 'Major version bump and rebuild.'
 	git push origin && git push origin --tags
 	# make publish
 
 minor:
 	make build
 	npm version `src/build/inc_version minor kckr`
-	git add .
-	git commit -avm 'Minor version bump and rebuild.'
 	git push origin && git push origin --tags
 	# make publish
 
 patch:
 	make build
 	npm version `src/build/inc_version patch kckr`
-	git add .
-	git commit -avm 'Minor version bump and rebuild.'
 	git push origin && git push origin --tags
 	# make publish
 
