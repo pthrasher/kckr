@@ -14,19 +14,19 @@ watch:
 major:
 	make build
 	npm version `src/build/inc_version major kckr`
-	git push origin && git push origin --tags
+	# git push origin && git push origin --tags
 	# make publish
 
 minor:
 	make build
 	npm version `src/build/inc_version minor kckr`
-	git push origin && git push origin --tags
+	# git push origin && git push origin --tags
 	# make publish
 
 patch:
 	make build
 	npm version `src/build/inc_version patch kckr`
-	git push origin && git push origin --tags
+	# git push origin && git push origin --tags
 	# make publish
 
 publish:
