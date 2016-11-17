@@ -2,7 +2,7 @@
   "author": "Philip Thrasher <philipthrasher@gmail.com> (http://philipthrasher.com)",
   "name": "kckr",
   "description": "Yet another file kicker. However, this is the one you'll want to use. It's built on the super reliable file watching technique that coffee-script's cli app uses.",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "homepage": "http://pthrasher.github.com/kckr/",
   "repository": {
     "type": "git",
