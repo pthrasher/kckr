@@ -37,6 +37,8 @@
     "kick",
     "path"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "graceful-fs": "^4.1.11"
+  },
   "optionalDependencies": {}
 }
