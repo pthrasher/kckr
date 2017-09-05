@@ -1,4 +1,4 @@
-fs            = require 'graceful-fs'
+fs            = require 'fs'
 path          = require 'path'
 helpers       = require './helpers'
 optparse      = require './optparse'
