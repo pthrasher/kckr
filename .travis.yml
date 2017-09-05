@@ -1,4 +1,7 @@
 language: node_js
 node_js:
-   - 0.6
+   - 4.8.4
+   - 6.11.2
+   - 7.10.1
+   - 8.4
 script: "make build"
